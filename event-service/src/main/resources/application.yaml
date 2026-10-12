@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: event-service
+  jpa:
+    hibernate:
+      ddl-auto: validate     # Hibernate chỉ kiểm tra, KHÔNG tự tạo bảng; bảng do Flyway tạo
+    open-in-view: false      # tắt một mặc định gây khó hiểu, giải thích sau
+server:
+  port: 8081
