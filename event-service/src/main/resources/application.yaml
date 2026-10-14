@@ -5,5 +5,10 @@ spring:
     hibernate:
       ddl-auto: validate     # Hibernate chỉ kiểm tra, KHÔNG tự tạo bảng; bảng do Flyway tạo
     open-in-view: false      # tắt một mặc định gây khó hiểu, giải thích sau
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
 server:
   port: 8081

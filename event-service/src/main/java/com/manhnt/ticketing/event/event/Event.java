@@ -1,5 +1,6 @@
 package com.manhnt.ticketing.event.event;
 
+import com.manhnt.ticketing.event.common.BusinessRuleException;
 import com.manhnt.ticketing.event.venue.Venue;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
@@ -50,11 +51,11 @@ public class Event {
 
     public Section addSection(String name, SeatingType seatingType, int capacity, BigDecimal price) {
         if (status != EventStatus.DRAFT) {
-            throw new IllegalStateException("Chỉ được thêm khu khán đài khi sự kiện đang ở trạng thái DRAFT");
+            throw new BusinessRuleException("Chỉ được thêm khu khán đài khi sự kiện đang ở trạng thái DRAFT");
         }
         int totalCapacity = sections.stream().mapToInt(Section::getCapacity).sum() + capacity;
         if (totalCapacity > venue.getCapacity()) {
-            throw new IllegalStateException("Tổng sức chứa các khu vượt quá sức chứa của sân");
+            throw new BusinessRuleException("Tổng sức chứa các khu vượt quá sức chứa của sân");
         }
         Section section = new Section(this, name, seatingType, capacity, price);
         sections.add(section);
@@ -63,10 +64,10 @@ public class Event {
 
     public void publish() {
         if (status != EventStatus.DRAFT) {
-            throw new IllegalStateException("Chỉ sự kiện DRAFT mới được mở bán");
+            throw new BusinessRuleException("Chỉ sự kiện DRAFT mới được mở bán");
         }
         if (sections.isEmpty()) {
-            throw new IllegalStateException("Phải có ít nhất 1 khu khán đài trước khi mở bán");
+            throw new BusinessRuleException("Phải có ít nhất 1 khu khán đài trước khi mở bán");
         }
         status = EventStatus.ON_SALE;
     }
