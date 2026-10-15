@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- Cha của pom cha: vẫn là Spring Boot, nên mọi service đều được Spring Boot quản lý phiên bản -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>4.1.1</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>com.manhnt.ticketing</groupId>
+    <artifactId>ticketing-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>   <!-- pom cha không chứa code, chỉ chứa cấu hình -->
+    <name>ticketing</name>
+    <description>Hệ thống bán vé sự kiện</description>
+
+    <!-- Chặn metadata của Spring Boot kế thừa xuống các service -->
+    <url/>
+    <licenses>
+        <license/>
+    </licenses>
+    <developers>
+        <developer/>
+    </developers>
+    <scm>
+        <connection/>
+        <developerConnection/>
+        <tag/>
+        <url/>
+    </scm>
+
+    <modules>
+        <module>event-service</module>
+    </modules>
+
+    <properties>
+        <java.version>25</java.version>
+        <springdoc.version>3.1.1</springdoc.version>   <!-- đúng số bạn đang dùng ở event-service -->
+    </properties>
+
+    <!-- Chỉ KHAI BÁO phiên bản. Service nào cần thì tự thêm dependency, không cần ghi version -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+                <version>${springdoc.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <!-- Áp dụng cho MỌI service: test chạy UTC, không nạp dữ liệu mẫu -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <argLine>-Duser.timezone=UTC -Dspring.flyway.locations=classpath:db/migration</argLine>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
