@@ -4,7 +4,17 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate     # Hibernate chỉ kiểm tra, KHÔNG tự tạo bảng; bảng do Flyway tạo
-    open-in-view: false      # tắt một mặc định gây khó hiểu, giải thích sau
+    open-in-view: false      # tắt một mặc định gây khó hiểu
+  flyway:
+    locations: classpath:db/migration,classpath:db/dev-data
+  docker:
+    compose:
+      file: ../compose.yaml
+      lifecycle-management: start-only
+  datasource:
+    url: jdbc:postgresql://localhost:5432/event_db
+    username: ${DB_USERNAME:event_svc}
+    password: ${DB_PASSWORD:event_svc}
 
 springdoc:
   swagger-ui:
