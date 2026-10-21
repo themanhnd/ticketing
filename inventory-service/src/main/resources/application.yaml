@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: inventory-service
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  docker:
+    compose:
+      file: ../compose.yaml
+      lifecycle-management: start-only
+  datasource:
+    url: jdbc:postgresql://localhost:5432/inventory_db
+    username: ${DB_USERNAME:inventory_svc}
+    password: ${DB_PASSWORD:inventory_svc}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+server:
+  port: 8082

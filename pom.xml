@@ -36,6 +36,7 @@
 
     <modules>
         <module>event-service</module>
+        <module>inventory-service</module>
     </modules>
 
     <properties>
