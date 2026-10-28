@@ -20,3 +20,8 @@ springdoc:
 
 server:
   port: 8082
+
+ticketing:
+  services:
+    event:
+      base-url: http://localhost:8081
