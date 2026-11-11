@@ -33,6 +33,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return problem;
     }
 
+    @ExceptionHandler(ServiceUnavailableException.class)
+    ProblemDetail handleServiceUnavailable(ServiceUnavailableException ex) {
+        log.warn("Service phụ thuộc không khả dụng: {}", ex.getMessage());
+        ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.SERVICE_UNAVAILABLE, ex.getMessage());
+        problem.setTitle("Dịch vụ tạm thời không khả dụng");
+        return problem;
+    }
+
     // Ràng buộc trong DB bị vi phạm, ví dụ trùng tên khu khán đài (UNIQUE)
     @ExceptionHandler(DataIntegrityViolationException.class)
     ProblemDetail handleDataIntegrity(DataIntegrityViolationException ex) {
