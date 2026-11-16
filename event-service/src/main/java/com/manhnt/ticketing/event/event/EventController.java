@@ -36,7 +36,6 @@ public class EventController {
 
     @GetMapping("/{id}")
     public EventResponse get(@PathVariable Long id) {
-        try { Thread.sleep(30_000); } catch (InterruptedException e) { Thread.currentThread().interrupt(); }   // TẠM: giả lập treo 30 giây
         return eventService.get(id);
     }
 
